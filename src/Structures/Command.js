@@ -4,7 +4,7 @@ module.exports = class Command {
 		this.client = client;
 		this.name = options.name || name;
 		this.aliases = options.aliases || [];
-		this.description = options.description = 'No description provided';
+		this.description = options.description || 'No description provided';
 		this.category = options.category || 'Miscellaneous';
 		this.usage = options.usage || 'No usage provided';
 	}

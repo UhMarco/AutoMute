@@ -2,6 +2,7 @@ const path = require('path');
 const { promisify } = require('util');
 const glob = promisify(require('glob'));
 const Command = require('./Command.js');
+const Event = require('./Event.js')
 
 module.exports = class Util {
 
@@ -36,6 +37,21 @@ module.exports = class Util {
 				}
 			}
 		});
+	}
+
+	async loadEvents() {
+		return glob(`${this.directory}events/**/*.js`).then(events => {
+			for (const eventFile of events) {
+				delete require.cache[eventFile];
+				const { name } = path.parse(eventFile);
+				const File = require(eventFile);
+				if (!this.isClass(File)) throw new TypeError(`Event ${name} doesn't export a class.`);
+				const event = new File(this.client, name);
+				if (!(event instanceof Event)) throw new TypeError(`Event ${name} doesn't belong in Events.`)
+				this.client.events.set(event.name, event);
+				event.emitter[event.type](name, (...args) => event.run(...args));
+			}
+		})
 	}
 
 };
