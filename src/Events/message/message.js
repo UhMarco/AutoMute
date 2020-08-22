@@ -1,29 +1,27 @@
 const Event = require('../../Structures/Event');
-const fs = require('fs');
-
-function loadJSON(filename = '') {
-  file = __dirname + `/../../Data/${filename}`;
-  return JSON.parse(
-    fs.existsSync(file) ? fs.readFileSync(file).toString() : null
-  )
-}
+const f = require('../../Structures/Functions');
 
 module.exports = class extends Event {
 
   async run(message) {
+
+    // IGNORE DMS AND BOTS
+    if (!message.guild || message.author.bot) return;
+
     // FILTER
-    const file = loadJSON(`${message.guild.id}.json`);
+    const file = f.loadJSON(`${message.guild.id}.json`);
     if (file) {
       file.phrases.forEach(phrase => {
-        if (message.content.toLowerCase().includes(phrase)) return message.delete();
+        if (message.content.toLowerCase().includes(phrase)) {
+          message.delete();
+          return message.channel.send(`<@${message.author.id}> - filtered word violation.`);
+        }
       });
     }
 
     // CONTINUE
     const mentionRegex = RegExp(`^<@!${this.client.user.id}>$`);
     const mentionRegexPrefix = RegExp(`^<@!${this.client.user.id}> `);
-
-    if (!message.guild || message.author.bot) return;
 
     if (message.content.match(mentionRegex)) message.channel.send(`My prefix is \`${this.client.prefix}\``);
 
