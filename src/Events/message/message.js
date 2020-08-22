@@ -15,10 +15,9 @@ module.exports = class extends Event {
     const file = loadJSON(`${message.guild.id}.json`);
     if (file) {
       file.phrases.forEach(phrase => {
-        if (message.content.toLowerCase().includes(phrase)) message.delete()
+        if (message.content.toLowerCase().includes(phrase)) return message.delete();
       });
     }
-
 
     // CONTINUE
     const mentionRegex = RegExp(`^<@!${this.client.user.id}>$`);
