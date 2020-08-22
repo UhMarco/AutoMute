@@ -1,8 +1,26 @@
 const Event = require('../../Structures/Event');
+const fs = require('fs');
+
+function loadJSON(filename = '') {
+  file = __dirname + `/../../Data/${filename}`;
+  return JSON.parse(
+    fs.existsSync(file) ? fs.readFileSync(file).toString() : null
+  )
+}
 
 module.exports = class extends Event {
 
   async run(message) {
+    // FILTER
+    const file = loadJSON(`${message.guild.id}.json`);
+    if (file) {
+      file.phrases.forEach(phrase => {
+        if (message.content.toLowerCase().includes(phrase)) message.delete()
+      });
+    }
+
+
+    // CONTINUE
     const mentionRegex = RegExp(`^<@!${this.client.user.id}>$`);
     const mentionRegexPrefix = RegExp(`^<@!${this.client.user.id}> `);
 
