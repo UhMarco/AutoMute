@@ -1,2 +1,4 @@
 config.json
 node_modules/
+src/Data/*
+!src/Data/template.json
