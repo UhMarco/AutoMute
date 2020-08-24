@@ -7,7 +7,7 @@ A discord bot that makes the lives of server moderators a little easier with a c
 - To view all commands do `cf help`
 - To view all phrases in the filter do `cf list`
 - To add a phrase do `cf add <phrase>`
-- To remove a phrase do `cf del <phraseNumber>`
+- To remove a phrase do `cf del <phrase>`
 
 By default, the bot will not mute for a chat violation, however it can after a specified amount of offenses. </br>
 - To change the number of offenses before muting do `cf automute <number>`
