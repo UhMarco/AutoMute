@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	async run(message, ...input) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You must be an administrator to do this.");
 
-    const file = f.loadJSON(`${message.guild.id}.json`);
+    let file = f.loadJSON(`${message.guild.id}.json`);
     if (!file) {
       f.createJSON(message);
       file = f.loadJSON(`${message.guild.id}.json`);
