@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const f = require('../../Structures/Functions');
+const fs = require('fs');
 
 module.exports = class extends Command {
 
@@ -12,15 +13,18 @@ module.exports = class extends Command {
 	async run(message, ...input) {
     if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You must be an administrator to do this.");
 
-    let file = f.loadJSON(`${message.guild.id}.json`);
+		var file = f.loadJSON(`${message.guild.id}.json`);
+
     if (!file) {
-      f.createJSON(message);
-      file = f.loadJSON(`${message.guild.id}.json`);
+      file = f.createJSON(message);
+			console.log(file);
     }
-    let phrases = file.phrases;
 
-    input.join(' ');
+		var phrases = file.phrases
 
+		input.join(' ');
+
+		var BreakException = {};
 
     try {
       phrases.forEach(phrase => {
@@ -34,9 +38,9 @@ module.exports = class extends Command {
       else return;
     }
 
-    phrases.push(input.toString());
+		phrases.push(input.toString());
 
-    f.editJSON(message, file);
+		f.editJSON(message, file);
     message.channel.send(`Added "${input}" to the chat filter.`);
 
 	}

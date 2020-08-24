@@ -20,7 +20,7 @@ module.exports = class extends Command {
       file.phrases.forEach(phrase => {
         str.push(phrase);
       });
-      message.channel.send(str.join(','));
+      message.channel.send(str.join(', '));
     } else {
       message.channel.send('There are no filters set for this server.');
     }
