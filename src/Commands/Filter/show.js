@@ -18,11 +18,11 @@ module.exports = class extends Command {
 
     if (file) {
       file.phrases.forEach(phrase => {
-        str.push(phrase)
+        str.push(phrase);
       });
-      str = [] ? message.channel.send(str.join(',')) : message.channel.send('None')
+      message.channel.send(str.join(','));
     } else {
-      f.createJSON(message);
+      message.channel.send('There are no filters set for this server.');
     }
   }
 }

@@ -21,14 +21,23 @@ module.exports = class extends Command {
 
     input.join(' ');
 
-    phrases.forEach(phrase => {
-      if (phrase == input) return message.channel.send('That phrase is already filtered.');
-    });
 
-    phrases.push(input);
+    try {
+      phrases.forEach(phrase => {
+        if (phrase == input) {
+          message.channel.send('That phrase is already filtered.');
+          throw BreakException;
+        }
+      });
+    } catch (e) {
+      if (e !== BreakException) throw e;
+      else return;
+    }
+
+    phrases.push(input.toString());
 
     f.editJSON(message, file);
-    message.channel.send(`Added "${input}" to the chat filter.`)
+    message.channel.send(`Added "${input}" to the chat filter.`);
 
 	}
 
