@@ -1,4 +1,5 @@
 const Command = require('../../Structures/Command');
+const Discord = require('discord.js');
 const f = require('../../Structures/Functions');
 
 module.exports = class extends Command {
@@ -18,11 +19,14 @@ module.exports = class extends Command {
 
     if (file) {
       file.phrases.forEach(phrase => {
-        str.push(phrase);
+        str.push(`\`${phrase}\``);
       });
-      message.channel.send(str.join(', '));
+      var phraseList = str.join(', ');
     } else {
-      message.channel.send('There are no filters set for this server.');
+      var phraseList = '\`There are no filters set for this server.\`';
     }
+
+    message.channel.send(`**${message.guild.name} - Chat Filter**\n${phraseList}`);
+
   }
 }

@@ -16,7 +16,6 @@ module.exports = class extends Command {
 
 		if (!file) {
 			file = f.createJSON(message);
-			console.log(file);
 		}
 
 		var phrases = file.phrases
