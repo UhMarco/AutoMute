@@ -1,6 +1,6 @@
 # ChatFilter
 ## What is it?
-A discord bot that makes the lives of server moderators a little easier with a customizable chat filter and auto muting capabilities. Moderators can sit and watch chat fly past, scanning for anyone being inappropriate and it's not a lot of fun. This bot will pick out the more obvious rule violations such as spam and excessive pinging and will mute the user after a specified amount of offenses, this is off by default.
+A discord bot that makes the lives of server moderators a little easier with a customizable chat filter and auto muting capabilities. Moderators can sit and watch chat fly past, scanning for anyone being inappropriate and it's not a lot of fun. This bot will pick out the more obvious rule violations such as spam and excessive pinging and will mute the user after a specified amount of offenses, this is off by default. Warning: it's ugly.
 
 ## How do I use it?
 ### Usage
