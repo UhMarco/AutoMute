@@ -19,7 +19,7 @@ module.exports = class extends Command {
 
     let phrases = file.phrases;
 
-    var actionTaken = false;
+    let actionTaken = false;
 
     phrases.forEach(phrase => {
         if (input == phrase) {
@@ -28,14 +28,15 @@ module.exports = class extends Command {
         }
     });
 
-    if (!actionTaken) return message.channel.send(`"${input}" is not filtered.`)
+    if (input[0].length == 0) return message.channel.send('Please enter desired filter to delete.');
+    if (!actionTaken) return message.channel.send(`\`${input}\` is not filtered.`);
 
     if (phrases.length == 0) {
       f.deleteJSON(message);
     } else {
       f.editJSON(message, file);
     }
-    message.channel.send(`Removed "${input}" from the chat filter.`);
+    message.channel.send(`Removed \`${input}\` from the chat filter.`);
 
   }
 }

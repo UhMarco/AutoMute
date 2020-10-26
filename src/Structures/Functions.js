@@ -47,40 +47,36 @@ module.exports = {
 
     console.log("Running violation function.");
 
-    let history = file.history;
-    let limit = file.limit;
+    if (file.limit == 0) return false;
 
-    console.log(`History: ${history} / Limit: ${limit}`);
+    let found = false;
+    let punish = false;
 
-    if (limit == 0) return;
-
-    var found = false;
-    var violations = 1;
-
-    for (var i = 0; i < history.length; i++) { // Check if user already has violation history...
-      if (history[i][0] == message.author.id) {
+    for (var i = 0; i < file.history.length; i++) { // Check if user already has violation history...
+      if (file.history[i][0] == message.author.id) {
         found = true;
-        violations = history[i][1]
-        violations++; // Increase history by one.
+        file.history[i][1]++; // Increase history by one.
         console.log("History found - increased by 1.");
+
+        if (file.history[i][1] >= file.limit) {
+          // Punish
+          console.log("Punishing and resetting violations.");
+          file.history.pop(i)
+          punish = true;
+        }
+
       }
     }
 
     if (!found) { // New offence.
-      history.push([message.author.id, violations]);
+      file.history.push([message.author.id, 1]);
       console.log("New offence.");
     }
 
-    if (violations > limit) {
-      // Punish
-      console.log("Punishing and resetting violations.");
-      violations = 0;
-    }
-
     // Finally update file.
-    module.exports = editJSON(message, file);
+    module.exports.editJSON(message, file);
     console.log("File updated.");
-
+    return punish;
   }
 
 }

@@ -26,7 +26,7 @@ module.exports = class extends Command {
       var phraseList = '\`There are no filters set for this server.\`';
     }
 
-    message.channel.send(`**${message.guild.name} - Chat Filter**\n${phraseList}`);
+    message.channel.send(`**${message.guild.name} - Chat Filter** (Violation limit: \`${file.limit}\`)\n${phraseList}`);
 
   }
 }

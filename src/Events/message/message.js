@@ -10,11 +10,14 @@ module.exports = class extends Event {
 
     // FILTER
     const file = f.loadJSON(`${message.guild.id}.json`);
-    if (file && message.member.hasPermission("ADMINISTRATOR")) {
+    if (file && message.member.hasPermission("ADMINISTRATOR")) { // REMEMBER TO ADD ! INFRONT
       file.phrases.forEach(phrase => {
         if (message.content.toLowerCase().includes(phrase)) {
           message.delete();
-          f.violation(message);
+          let x = f.violation(message);
+          if (x) {
+            return message.channel.send(`<@${message.author.id}> - filtered word violation. Violation limit reached. Punishing...`);
+          }
           return message.channel.send(`<@${message.author.id}> - filtered word violation.`);
         }
       });
