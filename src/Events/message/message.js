@@ -16,7 +16,14 @@ module.exports = class extends Event {
           message.delete();
           let x = f.violation(message);
           if (x) {
-            return message.channel.send(`<@${message.author.id}> - filtered word violation. Violation limit reached. Punishing...`);
+            message.channel.send(`<@${message.author.id}> - filtered word violation. Violation limit reached. Punishing...`);
+            let role = message.guild.roles.cache.find(role => role.name === "muted");
+            if (role) {
+              message.guild.member(message.author).roles.add(role);
+            } else {
+              message.channel.send('No role name "muted".');
+            }
+            return;
           }
           return message.channel.send(`<@${message.author.id}> - filtered word violation.`);
         }
