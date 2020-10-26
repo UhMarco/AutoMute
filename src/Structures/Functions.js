@@ -69,8 +69,9 @@ module.exports = {
     }
 
     if (!found) { // New offence.
-      file.history.push([message.author.id, 1]);
       console.log("New offence.");
+      if (file.limit == 1) return true;
+      file.history.push([message.author.id, 1]);
     }
 
     // Finally update file.
