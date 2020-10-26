@@ -10,7 +10,7 @@ You must have server administrator permissions to use commands.
 - To add a phrase do `cf add <phrase>`
 - To remove a phrase do `cf del <phrase>`
 
-By default, the bot will not mute for a chat violation, however it can after a specified amount of offenses. </br>
+By default, the bot will not mute for a chat violation, however it can after a specified amount of offenses. When I say mute, I mean giving a user a role called `muted` if it already exists. </br>
 - To change the number of offenses before muting do `cf automute <number>`
 - Set to `0` for off
 
